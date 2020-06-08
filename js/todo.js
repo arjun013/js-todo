@@ -36,30 +36,42 @@ $(document).ready( () => {
     })
 
 })
-const current = document.getElementsByClassName("checkbutton")
+const current = document.getElementsByClassName("checkbutton");
 const clickEvent = (id) => {
-    const status=todoList[id-1].completed;
-    if (!status) {
-        ++checked;
-        current[id-1].innerHTML=`<i class="fa fa-check"></i>`;
-        todoList[id-1].completed=true;
-        const promise =new Promise(checkFive);
-        promise.then( msg => alert(msg));
-    } else {
-        checked--;
-        current[id-1].innerHTML=``
-        todoList[id-1].completed=false;
-    }
+    const pr = clickEvent1(id);
+    pr.then( success => checkFive(success) )
+    .catch( error => checkFive(error))
+    .then( msg => alert(msg));
 }
    //selecting 5 items check
 
-function checkFive(resolve,reject){
-    if (checked>=5) {
-        resolve(`Congrats: ${checked} Tasks have been Successfully Completed `);
-    }
+function checkFive(checkNumber){
+    return new Promise((resolve,reject) => {
+        if (checkNumber>=5) {
+            resolve(`Congrats: ${checked} Tasks have been Successfully Completed `);
+        }
+    })
 }
-        
-        
+       
+
+function clickEvent1(id){//the promise returned to check task completed
+    return new Promise((resolve,reject) => {
+        const status=todoList[id-1].completed;
+    if (!status) {
+            ++checked;
+            current[id-1].innerHTML=`<i class="fa fa-check"></i>`;
+            todoList[id-1].completed=true;
+            resolve(checked)
+
+    } else {        
+            checked--;
+            current[id-1].innerHTML=``
+            todoList[id-1].completed=false;
+            reject(checked)
+
+    }
+    })
+}
 
 //navbar query
 let arr =[false,false]
