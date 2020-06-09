@@ -22,7 +22,7 @@ $(document).ready( () => {
         todoList.forEach(element => {
             const {id,title,completed} = element;
             if (completed === true) {
-                todoItems += `<p><button type="button" class="checkbutton"  onclick="clickEvent(${id})"><i class="fa fa-check"></i></button> ${id}. ${title} </p>`;
+                todoItems += `<p><button type="button" class="checkbutton" disabled  onclick="clickEvent(${id})"><i class="fa fa-check"></i></button> ${id}. ${title} </p>`;
             } else {
                 todoItems += `<p><button type="button" class="checkbutton"  onclick="clickEvent(${id})"></button> ${id}. ${title} </p>`;//`<p><input type="checkbox"  onchange="clickEvent(checked,${id})"  > ${id}. ${title} </p>`
             }
@@ -40,15 +40,15 @@ const current = document.getElementsByClassName("checkbutton");
 const clickEvent = (id) => {
     const pr = clickEvent1(id);
     pr.then( success => checkFive(success) )
-    .catch( error => checkFive(error))
+    .catch( num => checkFive(num))
     .then( msg => alert(msg));
 }
-   //selecting 5 items check
 
+//selecting 5 items  checking
 function checkFive(checkNumber){
     return new Promise((resolve,reject) => {
         if (checkNumber>=5) {
-            resolve(`Congrats: ${checked} Tasks have been Successfully Completed `);
+            resolve(`Congrats: ${checkNumber} Tasks have been Successfully Completed `);
         }
     })
 }

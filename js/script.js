@@ -12,13 +12,15 @@ $(document).ready(() => {
                 msg.text('');            
             }, 3000);
             return false;
-        }
-        msg.text("Welcome Admin"); 
-        
+        }else{
+            msg.text("Welcome Admin"); 
             setTimeout(() => {
-                callBack();     
+                callBack();  
+                return true;   
             }, 1000);
             
+        }
+
     }
     const redirect=() => {
         window.location.replace("./todo.html")
